@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# Environment files
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Hardhat files
+hardhat.config.ts
