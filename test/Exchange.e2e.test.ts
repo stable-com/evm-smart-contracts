@@ -370,7 +370,7 @@ describe('E2E: LiquidityPool & CrossChainHTLC (MVP)', () => {
       const LiquidityPool = await ethers.getContractFactory('LiquidityPool');
       pool = await upgrades.deployProxy(
         LiquidityPool,
-        [admin.address, manager.address, maintainer.address, await permit2.getAddress()],
+        [admin.address, manager.address, manager.address, maintainer.address, await permit2.getAddress()],
         { kind: 'uups', initializer: 'initialize' },
       );
       await pool.waitForDeployment();
@@ -770,7 +770,7 @@ describe('E2E: LiquidityPool & CrossChainHTLC (MVP)', () => {
 
       sourcePool = await upgrades.deployProxy(
         LiquidityPool,
-        [admin.address, manager.address, maintainer.address, await permit2.getAddress()],
+        [admin.address, manager.address, manager.address, maintainer.address, await permit2.getAddress()],
         { kind: 'uups', initializer: 'initialize' },
       );
       await sourcePool.waitForDeployment();
@@ -808,7 +808,7 @@ describe('E2E: LiquidityPool & CrossChainHTLC (MVP)', () => {
 
       destPool = await upgrades.deployProxy(
         LiquidityPool,
-        [admin.address, manager.address, maintainer.address, await permit2.getAddress()],
+        [admin.address, manager.address, manager.address, maintainer.address, await permit2.getAddress()],
         { kind: 'uups', initializer: 'initialize' },
       );
       await destPool.waitForDeployment();
@@ -848,6 +848,8 @@ describe('E2E: LiquidityPool & CrossChainHTLC (MVP)', () => {
         CrossChainHTLC,
         [
           admin.address,
+          manager.address,
+          manager.address,
           maintainer.address,
           await sourcePool.getAddress(),
           SWAP_TIMEOUT,
@@ -861,6 +863,8 @@ describe('E2E: LiquidityPool & CrossChainHTLC (MVP)', () => {
         CrossChainHTLC,
         [
           admin.address,
+          manager.address,
+          manager.address,
           maintainer.address,
           await destPool.getAddress(),
           SWAP_TIMEOUT,

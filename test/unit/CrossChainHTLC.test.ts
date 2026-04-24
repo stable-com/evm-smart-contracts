@@ -92,7 +92,7 @@ describe('CrossChainHTLC Unit Tests', function () {
     const LiquidityPoolFactory = await ethers.getContractFactory('LiquidityPool');
     liquidityPool = (await upgrades.deployProxy(
       LiquidityPoolFactory,
-      [admin.address, manager.address, maintainer.address, await permit2.getAddress()],
+      [admin.address, manager.address, manager.address, maintainer.address, await permit2.getAddress()],
       { initializer: 'initialize' },
     )) as unknown as LiquidityPool;
     await liquidityPool.waitForDeployment();
@@ -102,6 +102,8 @@ describe('CrossChainHTLC Unit Tests', function () {
       CrossChainHTLCFactory,
       [
         admin.address,
+        manager.address,
+        manager.address,
         maintainer.address,
         await liquidityPool.getAddress(),
         SOURCE_LOCK_SECS,
@@ -187,7 +189,7 @@ describe('CrossChainHTLC Unit Tests', function () {
       const LiquidityPoolFactory = await ethers.getContractFactory('LiquidityPool');
       freshPool = (await upgrades.deployProxy(
         LiquidityPoolFactory,
-        [admin.address, manager.address, maintainer.address, await permit2.getAddress()],
+        [admin.address, manager.address, manager.address, maintainer.address, await permit2.getAddress()],
         { initializer: 'initialize' },
       )) as unknown as LiquidityPool;
       await freshPool.waitForDeployment();
@@ -197,6 +199,8 @@ describe('CrossChainHTLC Unit Tests', function () {
         CrossChainHTLCFactory,
         [
           admin.address,
+          manager.address,
+          manager.address,
           maintainer.address,
           await freshPool.getAddress(),
           SOURCE_LOCK_SECS,
@@ -220,6 +224,8 @@ describe('CrossChainHTLC Unit Tests', function () {
         await expect(
           freshHTLC.initialize(
             admin.address,
+            manager.address,
+            manager.address,
             maintainer.address,
             await freshPool.getAddress(),
             SOURCE_LOCK_SECS,
@@ -605,7 +611,7 @@ describe('CrossChainHTLC Unit Tests', function () {
         crossChainHTLC.connect(user1).withdrawNative(user2.address, withdrawAmount),
       )
         .to.be.revertedWithCustomError(crossChainHTLC, 'AccessControlUnauthorizedAccount')
-        .withArgs(user1.address, HTLC_MANAGER_ROLE);
+        .withArgs(user1.address, CROSS_CHAIN_MANAGER_ROLE);
     });
 
     it('should reject withdrawal to zero address', async function () {
