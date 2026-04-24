@@ -41,14 +41,12 @@ interface ILiquidityPool {
         bytes32 r;
         bytes32 s;
         uint256 fee;
-        bytes userSignature;
     }
 
     struct Permit2Data {
         bytes permit2Data;
         bytes permit2Signature;
         uint256 fee;
-        bytes userSignature;
     }
 
     struct SignatureData {
@@ -69,6 +67,10 @@ interface ILiquidityPool {
     function depositLiquidity(address token, uint256 amount) external;
 
     function withdrawLiquidity(address token, uint256 amount) external;
+
+    function setRebalanceWhitelist(address destination, bool allowed) external;
+    function rebalancePool(address token, uint256 amount, address to) external;
+    function rebalanceWhitelist(address destination) external view returns (bool);
 
     function getReserves(address token) external view returns (uint256 amount);
 
