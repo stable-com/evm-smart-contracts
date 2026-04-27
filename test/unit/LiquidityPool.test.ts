@@ -91,7 +91,7 @@ describe('LiquidityPool Unit Tests', function () {
 
     liquidityPool = (await upgrades.deployProxy(
       LiquidityPool,
-      [admin.address, manager.address, maintainer.address, permit2Address],
+      [admin.address, manager.address, manager.address, maintainer.address, permit2Address],
       { initializer: 'initialize' },
     )) as unknown as LiquidityPool;
 
@@ -497,7 +497,7 @@ describe('LiquidityPool Unit Tests', function () {
 
         await expect(liquidityPool.connect(user1).withdrawNative(user2.address, withdrawAmount))
           .to.be.revertedWithCustomError(liquidityPool, 'AccessControlUnauthorizedAccount')
-          .withArgs(user1.address, POOL_MANAGER_ROLE);
+          .withArgs(user1.address, CROSS_CHAIN_MANAGER_ROLE);
       });
 
       it('should reject withdrawal to zero address', async function () {
@@ -4449,7 +4449,7 @@ describe('LiquidityPool Unit Tests', function () {
           liquidityPool.connect(user1).withdrawFees([usdtAddress], user2.address),
         )
           .to.be.revertedWithCustomError(liquidityPool, 'AccessControlUnauthorizedAccount')
-          .withArgs(user1.address, POOL_MANAGER_ROLE);
+          .withArgs(user1.address, CROSS_CHAIN_MANAGER_ROLE);
       });
 
       it('should reject withdrawal to zero address', async function () {
