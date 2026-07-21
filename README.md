@@ -21,6 +21,16 @@ npx hardhat test
 
 
 
+## Documentation
+
+An overview of what the protocol does — the HTLC contracts, how single-chain and
+cross-chain swaps work, and the role of the backend — lives in [`docs/`](./docs/README.md):
+
+- [Protocol overview](./docs/README.md)
+- [HTLC & Liquidity Pool contracts](./docs/htlc-and-pool.md) — start here
+- [How swaps work](./docs/how-swaps-work.md)
+- [Backend role](./docs/backend.md)
+
 ## Core Contracts
 
 ### CrossChainHTLC.sol
